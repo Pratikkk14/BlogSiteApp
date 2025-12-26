@@ -1,1 +1,58 @@
 @import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: light --default, silk, dracula, dark, lemonade, coffee, cupcake, retro, customdark;
+}
+
+@plugin "daisyui/theme" {
+  name: "customdark";
+  default: false;
+  prefersdark: true; /* since this palette is for dark theme */
+  color-scheme: "dark";
+
+  /* Backgrounds */
+  --color-base-100: oklch(0.2 0 250);       /* bg-light */
+  --color-base-200: oklch(0.15 0 250);      /* bg */
+  --color-base-300: oklch(0.1 0 250);       /* bg-dark */
+  --color-base-content: oklch(0.96 0 250);  /* text */
+
+  /* Borders */
+  --color-neutral: oklch(0.4 0 250);        /* border */
+  --color-neutral-content: oklch(0.76 0 250); /* text-muted */
+  --color-border-muted: oklch(0.3 0 250);   /* muted border */
+  --color-highlight: oklch(0.5 0 250);      /* lighter top border (shine) */
+
+  /* Primary & Secondary Actions */
+  --color-primary: oklch(0.76 0.1 250);     /* primary */
+  --color-primary-content: oklch(0.1 0 250); /* bg-dark for contrast */
+
+  --color-secondary: oklch(0.76 0.1 70);    /* secondary */
+  --color-secondary-content: oklch(0.1 0 250); /* bg-dark */
+
+  /* Alerts / Semantic Colors */
+  --color-error: oklch(0.7 0.05 30);        /* danger */
+  --color-error-content: oklch(0.1 0 250);  /* bg-dark */
+
+  --color-warning: oklch(0.7 0.05 100);     /* warning */
+  --color-warning-content: oklch(0.1 0 250); /* bg-dark */
+
+  --color-success: oklch(0.7 0.05 160);     /* success */
+  --color-success-content: oklch(0.1 0 250); /* bg-dark */
+
+  --color-info: oklch(0.7 0.05 260);        /* info */
+  --color-info-content: oklch(0.1 0 250);   /* bg-dark */
+
+  /* Radius and sizing */
+  --radius-selector: 2rem;
+  --radius-field: 0.5rem;
+  --radius-box: 2rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+.card {
+  border-top: 1px solid var(--color-highlight);
+}

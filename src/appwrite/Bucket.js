@@ -1,4 +1,4 @@
-import conf from "../conf/conf";
+import conf from "../conf/Conf";
 import { Client, ID, Storage } from "appwrite";
 
 export class BucketService {

@@ -1,5 +1,6 @@
-import conf from '../conf/conf'
+import conf from '../conf/Conf'
 import { Client, Account, ID } from 'appwrite'
+import { userService } from './Tables';
 
 export class AuthService {
   client = new Client();
@@ -10,29 +11,51 @@ export class AuthService {
     this.account = new Account(this.client);
   }
 
-  async createAccount({ email, password, name }) {
+  async createAccount({ email, password, name, username }) {
     try {
+      let userId = ID.unique();
       const userAccount = await this.account.create({
-        userId: ID.unique(),
+        userId,
         email,
         password,
         name,
       });
+      
       if (userAccount) {
-        return this.login({ email, password });
+        // Login first to get authenticated session
+        // Then create user row in the login method
+        return this.login({ email, password, username, name, isNewUser: true });
       }
     } catch (error) {
-      console.log("Appwrite AuthService createAccount error ::", error);
+      console.log("Appwrite AuthService createAccount || userCreation error ::", error);
       throw { message: error.message };
     }
   }
 
-  async login({ email, password }) {
+  async login({ email, password, username, name, isNewUser }) {
     try {
-      return await this.account.createEmailPasswordSession({
+      const session = await this.account.createEmailPasswordSession({
         email,
         password,
       });
+      
+      const user = await this.getCurrentUser();
+      
+      let userData;
+      
+      if (isNewUser) {
+        userData = await userService.createUser({ 
+          userId: user.$id, 
+          username, 
+          name: name || user.name 
+        });
+      } else {
+        userData = await userService.getUserById(user.$id);
+      }
+      
+      const sessionId = session.$id;
+      
+      return { userData, sessionId };
     } catch (error) {
       console.log("Appwrite AuthService login error ::", error);
       throw { message: error.message };
