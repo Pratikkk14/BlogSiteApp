@@ -51,12 +51,12 @@ function Signin() {
           type="password"
           name="password"
           placeholder="Enter your password"
-          className="input input-bordered w-full"
+          className="input input-bordered w-full rounded"
           svgIcon={keyIcon}
           autoComplete="current-password"
           required
         />
-        <button type="submit" className="btn btn-primary w-full mt-2">
+        <button type="submit" className="btn btn-primary w-full mt-2 rounded-4xl">
           SignIn
         </button>
       </Form>

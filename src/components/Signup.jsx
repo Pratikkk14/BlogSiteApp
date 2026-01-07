@@ -85,7 +85,7 @@ function Signup() {
           autoComplete="new-password"
           required
         />
-        <button type="submit" className="btn btn-primary w-full mt-2">
+        <button type="submit" className="btn btn-primary w-full mt-2 rounded-4xl">
           SignUp
         </button>
       </Form>

@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useUIStore } from "./store/useStore";
 import {
   TestComponent,
@@ -46,6 +46,10 @@ function App() {
           path: "home",
           element: <Home />,
         },
+        {
+          path: "write",
+          element: <div>Write Article Page - To be implemented</div>,
+        }
       ],
     },
     {
