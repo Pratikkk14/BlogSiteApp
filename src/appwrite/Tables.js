@@ -163,6 +163,32 @@ class UserService {
       return false;
     }
   }
+
+  async getAllUsers() {
+    try {
+      return await this.userdb.listRows({
+        databaseId: conf.databaseId,
+        tableId: conf.userId,
+      });
+    } catch (error) {
+      console.log("Appwrite UserService getAllUsers error ::", error);
+      throw { message: error.message };
+    }
+  }
+
+  async searchUserByUsername(username) {
+    try {
+      const users = await this.userdb.listRows({
+        databaseId: conf.databaseId,
+        tableId: conf.userId,
+        queries: [Query.equal("username", username)],
+      });
+      return users.rows && users.rows.length > 0 ? users.rows[0] : null;
+    } catch (error) {
+      console.log("Appwrite UserService searchUserByUsername error ::", error);
+      throw { message: error.message };
+    }
+  }
 }
 
 const userService = new UserService();

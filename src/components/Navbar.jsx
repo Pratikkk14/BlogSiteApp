@@ -4,6 +4,7 @@ import InputBox from "./Input";
 import { Search, Bell, PenSquare, LogOut } from "lucide-react";
 import { useAuthStore } from "../store/useStore";
 import authService from "../appwrite/Auth";
+import { useNavigate } from "react-router";
 
 function Navbar({ children }) {
   
@@ -11,6 +12,7 @@ function Navbar({ children }) {
   const logout = useAuthStore((state) => state.logout);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const profileMenuRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleProfileClick = () => {
     setShowProfileMenu((prev) => !prev);
@@ -36,8 +38,11 @@ function Navbar({ children }) {
     try {
       await authService.logout();
       logout();
+      navigate('/signin');
     } catch (err) {
-      setError(err.message || "Failed to logout");
+      // Even if logout fails on server, clear local state
+      logout();
+      navigate('/signin');
     }
   };
 
@@ -86,21 +91,21 @@ function Navbar({ children }) {
               {showProfileMenu && (
                 <div className="absolute top-16 right-0 bg-white shadow-lg rounded-lg py-2 w-48 z-10 animate-fade-in">
                   <Link
-                    to="/profile"
+                    to="/user/profile"
                     className="block px-4 py-2 hover:bg-base-200 text-base-content transition-colors duration-150"
                     onClick={() => setShowProfileMenu(false)}
                   >
                     Profile
                   </Link>
                   <Link
-                    to="/dashboard"
+                    to="/user/dashboard"
                     className="block px-4 py-2 hover:bg-base-200 text-base-content transition-colors duration-150"
                     onClick={() => setShowProfileMenu(false)}
                   >
                     Dashboard
                   </Link>
                   <Link
-                    to="/settings"
+                    to="/user/settings"
                     className="block px-4 py-2 hover:bg-base-200 text-base-content transition-colors duration-150"
                     onClick={() => setShowProfileMenu(false)}
                   >

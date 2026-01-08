@@ -64,7 +64,8 @@ export class AuthService {
 
   async logout() {
     try {
-      return await this.account.deleteSession("current");
+      // Delete all sessions for the user
+      return await this.account.deleteSessions();
     } catch (error) {
       console.log("Appwrite AuthService logout error ::", error);
       throw { message: error.message };
@@ -77,6 +78,16 @@ export class AuthService {
     } catch (error) {
       console.log("Error in getting User ::", error);
       throw { message: error.message };
+    }
+  }
+
+  async checkAuthStatus() {
+    try {
+      const user = await this.account.get();
+      return user;
+    } catch (error) {
+      // User is not logged in
+      return null;
     }
   }
 

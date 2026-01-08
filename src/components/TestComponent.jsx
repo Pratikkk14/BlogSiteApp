@@ -106,6 +106,42 @@ export default function TestComponent() {
     }
   };
 
+  // Test: Get all users
+  const handleGetAllUsers = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const users = await userService.getAllUsers();
+      console.log("All users:", users);
+      setDbUserData(users);
+    } catch (err) {
+      setError(err.message || "Failed to get all users");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Test: Search by username
+  const handleSearchByUsername = async (username) => {
+    if (!username) {
+      setError("Please enter a username");
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    try {
+      const user = await userService.searchUserByUsername(username);
+      console.log("User found by username:", user);
+      setDbUserData(user);
+    } catch (err) {
+      setError(err.message || "Failed to search user");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="p-6 space-y-6">
       <h1 className="text-3xl font-bold">Backend Testing Component</h1>
@@ -309,6 +345,64 @@ export default function TestComponent() {
           {dbUserData && (
             <div className="bg-base-200 p-4 rounded mt-4">
               <h3 className="font-bold mb-2">User Data:</h3>
+              <pre className="text-xs overflow-x-auto">
+                {JSON.stringify(dbUserData, null, 2)}
+              </pre>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Get all users testing */}
+      <div className="card bg-base-100 shadow-xl">
+        <div className="card-body">
+          <h2 className="card-title">List All Users</h2>
+          <button 
+            className="btn btn-info" 
+            onClick={handleGetAllUsers}
+            disabled={loading}
+          >
+            {loading ? "Loading..." : "Get All Users"}
+          </button>
+          {dbUserData && (
+            <div className="bg-base-200 p-4 rounded mt-4">
+              <h3 className="font-bold mb-2">All Users:</h3>
+              <pre className="text-xs overflow-x-auto">
+                {JSON.stringify(dbUserData, null, 2)}
+              </pre>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Search by username testing */}
+      <div className="card bg-base-100 shadow-xl">
+        <div className="card-body">
+          <h2 className="card-title">Search User by Username</h2>
+          <div className="flex gap-2 items-end">
+            <div className="form-control flex-1">
+              <label className="label">
+                <span className="label-text">Enter Username</span>
+              </label>
+              <input
+                type="text"
+                className="input input-bordered"
+                placeholder="MrP"
+                value={testUserId}
+                onChange={(e) => setTestUserId(e.target.value)}
+              />
+            </div>
+            <button 
+              className="btn btn-success" 
+              onClick={() => handleSearchByUsername(testUserId)}
+              disabled={loading}
+            >
+              {loading ? "Loading..." : "Search"}
+            </button>
+          </div>
+          {dbUserData && (
+            <div className="bg-base-200 p-4 rounded mt-4">
+              <h3 className="font-bold mb-2">Search Result:</h3>
               <pre className="text-xs overflow-x-auto">
                 {JSON.stringify(dbUserData, null, 2)}
               </pre>

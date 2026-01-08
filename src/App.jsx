@@ -10,6 +10,10 @@ import {
   Signup,
   signinAction,
   signupAction,
+  Profile,
+  Dashboard,
+  Settings,
+  Write,
 } from "./components";
 import { createBrowserRouter, RouterProvider } from "react-router";
 
@@ -48,7 +52,38 @@ function App() {
         },
         {
           path: "write",
-          element: <div>Write Article Page - To be implemented</div>,
+          element: <Write />,
+        },
+        {
+          path: "user",
+          children: [
+            {
+              path: "profile",
+              element: <Profile />,
+            },
+            {
+              path: "dashboard",
+              element: <Dashboard />,
+              children: [
+                {
+                  index: true,
+                  element: <Settings />,
+                },
+                {
+                  path: "edit-profile",
+                  element: <Settings />,
+                },
+                {
+                  path: "write",
+                  element: <Write />,
+                },
+                // {
+                //   path: "blogs",
+                //   element: <div className="flex-1 p-8"><h1 className="text-2xl font-semibold">My Blogs</h1><p className="text-gray-600">My blogs page - To be implemented</p></div>,
+                // },
+              ],
+            },
+          ],
         }
       ],
     },
