@@ -3,7 +3,12 @@ import TestComponent from "./TestComponent";
 import Navbar from "./Navbar";
 import {Signup, signupAction} from "./Signup";
 import Home from "./HomePage";
-import ErrorPage  from "./ErrorPage";
+import ErrorPage from "./ErrorPage";
+import Profile from "./Profile";
+import Dashboard from "./Dashboard";
+import Settings from "./Settings";
+import Write from "./Write";
+import PasswordPage from "./PasswordPage";
 export {
   Signin,
   signinAction,
@@ -13,4 +18,9 @@ export {
   TestComponent,
   Home,
   ErrorPage,
+  Profile,
+  Dashboard,
+  Settings,
+  Write,
+  PasswordPage,
 };

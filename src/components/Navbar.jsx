@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef} from "react";
-import { Outlet, Link } from "react-router";
-import InputBox from "./Input";
+import { Link } from "react-router";
+// import InputBox from "./Input";
 import { Search, Bell, PenSquare, LogOut } from "lucide-react";
 import { useAuthStore } from "../store/useStore";
 import authService from "../appwrite/Auth";
@@ -51,7 +51,7 @@ function Navbar({ children }) {
       <nav className="w-full h-20 flex items-center justify-between px-6 py-3 bg-base-100 text-base-content shadow-md border-b border-base-300">
         {/* Logo on the left and searchbar */}
         <div className="flex items-center">
-          <span className="text-xl font-bold text-primary mr-4 transition-transform duration-300 hover:scale-110">
+          <span className="hover:cursor-pointer text-xl font-bold text-primary mr-4 transition-transform duration-300 hover:scale-110" onClick={() => navigate('/')}> 
             MegaBlogSite
           </span>
           <div className="flex items-center gap-4">
@@ -78,7 +78,10 @@ function Navbar({ children }) {
               className="flex items-center gap-3 relative"
               ref={profileMenuRef}
             >
-              <Bell className="w-6 h-6 text-base-content cursor-pointer hover:text-primary mr-2 transition-transform duration-200 hover:scale-110 active:scale-95" />
+              <Bell
+                className="w-6 h-6 text-base-content cursor-pointer hover:text-primary mr-2 transition-transform duration-200 hover:scale-110 active:scale-95"
+                onClick={() => navigate('/notifications')}
+              />
               <div
                 className="rounded-4xl h-12 w-12 bg-gray-300 btn btn-ghost flex items-center justify-center text-sm mr-3 cursor-pointer transition-all duration-200 hover:shadow-lg hover:bg-gray-400 active:scale-95 active:bg-gray-200"
                 onClick={handleProfileClick}
@@ -98,19 +101,19 @@ function Navbar({ children }) {
                     Profile
                   </Link>
                   <Link
-                    to="/user/dashboard"
-                    className="block px-4 py-2 hover:bg-base-200 text-base-content transition-colors duration-150"
-                    onClick={() => setShowProfileMenu(false)}
-                  >
-                    Dashboard
-                  </Link>
-                  <Link
                     to="/user/settings"
                     className="block px-4 py-2 hover:bg-base-200 text-base-content transition-colors duration-150"
                     onClick={() => setShowProfileMenu(false)}
                   >
                     Settings
                   </Link>
+                  {/* <Link
+                    to="/user/settings"
+                    className="block px-4 py-2 hover:bg-base-200 text-base-content transition-colors duration-150"
+                    onClick={() => setShowProfileMenu(false)}
+                  >
+                    Settings
+                  </Link> */}
                   <div
                     className="block px-4 py-2 hover:bg-base-200 text-base-content transition-colors duration-150 cursor-pointer h-10 w-auto text-xl"
                     onClick={handleLogout}
@@ -133,7 +136,6 @@ function Navbar({ children }) {
           )}
         </div>
       </nav>
-      <Outlet />
       <style>
         {`
           @keyframes fade-in {

@@ -5,7 +5,6 @@ import {
   TestComponent,
   ErrorPage,
   Signin,
-  Navbar,
   Home,
   Signup,
   signinAction,
@@ -14,7 +13,9 @@ import {
   Dashboard,
   Settings,
   Write,
+  PasswordPage,
 } from "./components";
+import MainLayout from "./components/Layouts/MainLayout";
 import { createBrowserRouter, RouterProvider } from "react-router";
 
 
@@ -28,13 +29,12 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Navbar />,
+      element: <MainLayout />,
       errorElement: <ErrorPage />,
       children: [
         {
           index: true,
-          element: <Signin />,
-          action: signinAction,
+          element: <Home />,
         },
         {
           path: "signin",
@@ -47,12 +47,12 @@ function App() {
           action: signupAction,
         },
         {
-          path: "home",
-          element: <Home />,
-        },
-        {
           path: "write",
           element: <Write />,
+        },
+        {
+          path: "notifications",
+          element: <div>To be implemented: NOTIFICATIONS </div>,
         },
         {
           path: "user",
@@ -62,7 +62,7 @@ function App() {
               element: <Profile />,
             },
             {
-              path: "dashboard",
+              path: "settings",
               element: <Dashboard />,
               children: [
                 {
@@ -74,13 +74,21 @@ function App() {
                   element: <Settings />,
                 },
                 {
-                  path: "write",
-                  element: <Write />,
+                  path: "Library",
+                  element: <div>To be implemented: LIBRARY</div>,
                 },
-                // {
-                //   path: "blogs",
-                //   element: <div className="flex-1 p-8"><h1 className="text-2xl font-semibold">My Blogs</h1><p className="text-gray-600">My blogs page - To be implemented</p></div>,
-                // },
+                {
+                  path: "change-password",
+                  element: <PasswordPage />,
+                },
+                {
+                  path: "blogs",
+                  element: <div>To be implemented: BLOGS</div>
+                },
+                {
+                  path: "notifications",
+                  element: <div>To be implemented: NOTIFICATIONS </div>,
+                }
               ],
             },
           ],
